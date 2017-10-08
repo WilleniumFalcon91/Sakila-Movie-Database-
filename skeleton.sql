@@ -119,4 +119,19 @@ HAVING
     num_rentals >= 30
 ;
 
+#finds active users who are also rewards members and returns their customer_id, name and email address
+SELECT 
+    c.customer_id, 
+    c.first_name, 
+    c.email,
+    count(r.rental_date) as num_rentals
+    max(rental_date)
+FROM 
+    customer c, rental r
+GROUP BY 
+    1
+HAVING 
+    num_rentals >= 30
+;
+
 

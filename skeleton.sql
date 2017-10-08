@@ -71,6 +71,9 @@ WHERE
     ac.customer_id = rc.customer_id
 ;
 
+
+#JOIN and INNER JOIN are interchangable 
+
 SELECT 
     ac.customer_id, 
     ac.fav_color, 
@@ -80,6 +83,40 @@ FROM
     JOIN reward_customer rc ON ac.customer_id = rc.customer_id
 ;
 
+#LEFT JOIN
+SELECT 
+    ac.customer_id, 
+    ac.fav_color, 
+    rc.num_purchases
+FROM 
+    active_customer ac 
+    LEFT JOIN reward_customer rc ON ac.customer_id = rc.customer_id
+;
 
+#creates temporary table for active users 
+SELECT 
+    c.*,
+    a.phone
+FROM 
+    customer c
+    	JOIN address a ON c.address_id = a.address_id
+WHERE 
+    c.active = 1
+GROUP BY 
+    1
+;
+
+#creates temporary table for number of rentals 30 or over 
+SELECT 
+    r.customer_id,
+    count(r.rental_id) as num_rentals,
+    max(rental_date)
+FROM 
+    rental r
+GROUP BY 
+    1
+HAVING 
+    num_rentals >= 30
+;
 
 
